@@ -94,13 +94,12 @@ def trips_list(request: HttpRequest):
             "depart_at": t.depart_at.isoformat(),
             "price": t.price,
             "capacity_total": t.capacity_total,
-            # NOTE: admin_wa tidak wajib ditampilkan di list, tapi kalau mau bisa tambahkan
-            # "admin_wa": t.admin_wa,
+            "bus_image_url": request.build_absolute_uri(t.bus_image.url) if getattr(t, "bus_image", None) else "",
         }
         for t in trips
     ]
-
     return JsonResponse({"ok": True, "trips": data}, status=200)
+
 
 
 @require_http_methods(["GET"])
@@ -131,6 +130,7 @@ def hold_seat(request: HttpRequest):
     return _ok(data=res.data, message=res.message)
 
 
+@csrf_exempt
 @require_http_methods(["POST"])
 def release_seat(request: HttpRequest):
     body, err = _json_body(request)

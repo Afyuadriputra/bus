@@ -1,5 +1,6 @@
 from django.db import models
 import secrets
+from image_cropping import ImageRatioField
 
 
 class Trip(models.Model):
@@ -8,6 +9,9 @@ class Trip(models.Model):
         ("EXEC", "Executive"),
         ("SLEEPER", "Sleeper"),
     ]
+
+    bus_image = models.ImageField(upload_to="trip_bus/", blank=True, null=True)
+    bus_image_cropping = ImageRatioField("bus_image", "1600x896", free_crop=True)
 
     title = models.CharField(max_length=120)
     bus_type = models.CharField(max_length=20, choices=BUS_TYPE_CHOICES)

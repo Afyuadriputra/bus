@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # =============================
@@ -41,4 +43,7 @@ urlpatterns = [
     # Housekeeping
     # =============================
     path("api/expire/", views.expire_now),
-]
+    
+]   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

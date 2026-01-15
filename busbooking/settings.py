@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     "booking",
+    "easy_thumbnails",
+    "image_cropping",
+
 ]
 
 MIDDLEWARE = [
